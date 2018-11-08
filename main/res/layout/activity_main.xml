@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.chenyx.habit.MainActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_main" />
+
+    <TextView
+        android:id="@+id/tv_1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center"
+        android:text="标题1"
+        android:textColor="#ffffff"
+        android:visibility="gone"
+        android:background="@drawable/circle_purple"
+        />
+
+    <TextView
+        android:id="@+id/tv_2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center"
+        android:text="标题2"
+        android:textColor="#ffffff"
+        android:visibility="gone"
+        android:background="@drawable/circle_purple"/>
+
+    <TextView
+        android:id="@+id/tv_3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center"
+        android:text="标题3"
+        android:textColor="#ffffff"
+        android:visibility="gone"
+        android:background="@drawable/circle_purple"/>
+
+
+    <ImageView
+        android:id="@+id/img_publish"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="35dp"
+        android:layout_marginRight="35dp"
+        android:src="@mipmap/ic_action_new_light"
+        />
+
+</FrameLayout>
