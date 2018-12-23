@@ -144,4 +144,44 @@ public class MyBaseAdapter extends BaseAdapter {
         ProgressBar mProgressBar;
         TextView mTextView;
     }
+    
+    @Override
+    public void notifyDataSetChanged()  //重新刷新适配器,打卡完将签到日期写入数据库再调用
+    {
+        Max_Sign max_sign=max_signs_list.get(max_signs_list.size()-1);
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+        String dstr=max_sign.getEnd().getYear()+"-"+max_sign.getEnd().getMonth()+"-"+max_sign.getEnd().getDay();
+        Date data = null;
+        try {
+            data= sdf.parse(dstr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(data);
+        cal.add( Calendar. DATE, 1);  //往前一天
+        Cursor cursor=habit.get_manager().find_all();
+        cursor.moveToLast();    //光标移到最后
+        if (Integer.parseInt(cursor.getString(1))==cal.get(Calendar.YEAR)&&
+                (Integer.parseInt(cursor.getString(2))==cal.get(Calendar.MONTH)+1)&&
+                Integer.parseInt(cursor.getString(3))==cal.get(Calendar.DAY_OF_MONTH))
+        {
+            max_sign.setEnd(new SignData(Long.parseLong(cursor.getString(0)),
+                    Integer.parseInt(cursor.getString(1)),
+                    Integer.parseInt(cursor.getString(2)),
+                    Integer.parseInt(cursor.getString(3)),
+                    Integer.parseInt(cursor.getString(4))));
+        }
+        else
+        {
+            SignData start=new SignData(Long.parseLong(cursor.getString(0)),
+                    Integer.parseInt(cursor.getString(1)),
+                    Integer.parseInt(cursor.getString(2)),
+                    Integer.parseInt(cursor.getString(3)),
+                    Integer.parseInt(cursor.getString(4)));
+            max_signs_list.add(new Max_Sign(start,start));
+        }
+        cursor.close();
+        super.notifyDataSetChanged();
+    }
 }
