@@ -13,9 +13,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mListView=(ListView)findViewById(R.id.mlistview);
         Habit habit=new Habit(1,"eat","eat",1,false,0,0,this,"test");
-        habit.get_manager().insert(2018,12,20);
+        habit.get_manager().insert(2018,12,18);
+        habit.get_manager().insert(2018,12,19);
         habit.get_manager().insert(2018,12,21);
+        habit.get_manager().insert(2018,12,22);
+        MyBaseAdapter adapter=new MyBaseAdapter(this,habit);
+        mListView.setAdapter(adapter);
         habit.get_manager().insert();
-        mListView.setAdapter(new MyBaseAdapter(this,habit));
+        adapter.notifyDataSetChanged();
     }
 }
