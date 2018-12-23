@@ -17,4 +17,8 @@ public class Max_Sign {
     public SignData getEnd() {
         return end;
     }
+    
+    public void setEnd(SignData end) {
+        this.end = end;
+    }
 }
