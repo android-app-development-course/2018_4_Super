@@ -5,12 +5,9 @@ import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -25,7 +22,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import java.io.File;
 import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -39,8 +35,6 @@ import com.example.chenyx.habit.HabitSQL.Habit_All;
 import com.example.chenyx.habit.HabitSQL.SignData;
 import com.example.chenyx.habit.alarm_clock.AlarmService;
 
-import org.parceler.Parcels;
-
 public class MainActivity extends BaseActivity {
     private RecyclerView rv_falls ;
     private Button mbutton1;
@@ -48,16 +42,12 @@ public class MainActivity extends BaseActivity {
     private ToggleButton mbutton3;
     private ArrayList<Habit> habitDatas;
     private ArrayList<Integer> poslist;
+    MyAdapter homeAdapter;
     private String name;
     private String remind;
-    //public RemainTime time;
-    //public HabitSQLiteData mRemindSQL;
-    //public Habit newhabit;
     public Habit_All habit_all;
     private HabitHepler myhebithelper;
     private boolean alarmflag;
-    int i = 0;
-    Habit habit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +55,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //mRemindSQL=new HabitSQLiteData(this, "Remind.db", null, 1);、
-        //time = new RemainTime();
         habit_all=new Habit_All(this);
         myhebithelper=new HabitHepler(this);
 
@@ -80,11 +68,12 @@ public class MainActivity extends BaseActivity {
 
         habitDatas = new ArrayList<>();
         poslist = new ArrayList<>();
-        final MyAdapter homeAdapter = new MyAdapter(MainActivity.this, habitDatas);
+        homeAdapter = new MyAdapter(MainActivity.this, habitDatas);
         HabitHepler habitHepler = habit_all.getMyhebithelper();
         SQLiteDatabase db=habitHepler.getReadableDatabase();
         Cursor cursor=db.query("habit",null,null,null,null,null,null);
 
+        //初始读数据
         if (cursor.moveToFirst()){
             do {
                 if (!cursor.getString(cursor.getColumnIndex("habit_name")).equals("")) {
@@ -101,15 +90,6 @@ public class MainActivity extends BaseActivity {
                             cursor.getString(cursor.getColumnIndex("table_name")),
                             MainActivity.this
                     );
-
-//                    inserthabit.habit_id = cursor.getInt(cursor.getColumnIndex("habit_id"));
-//                    inserthabit.habit_name = cursor.getString(cursor.getColumnIndex("habit_name"));
-//                    inserthabit.content = cursor.getString(cursor.getColumnIndex("content"));
-//                    inserthabit.finish_frequent = cursor.getInt(cursor.getColumnIndex("finish_frequent"));
-//                    inserthabit.times = cursor.getInt(cursor.getColumnIndex("times"));
-//                    inserthabit.remind_hour = cursor.getInt(cursor.getColumnIndex("remind_hour"));
-//                    inserthabit.remind_minute = cursor.getInt(cursor.getColumnIndex("remind_minute"));
-//                    inserthabit.remind_times = cursor.getInt(cursor.getColumnIndex("remind_times"));
                     habitDatas.add(inserthabit);
                     poslist.add(poslist.size());
                 }
@@ -146,7 +126,6 @@ public class MainActivity extends BaseActivity {
         homeAdapter.buttonSetOnclick(new MyAdapter.ButtonInterface() {
             @Override
             public void onclick(View view,int position) {
-                int i=poslist.indexOf(position);
                 habitDatas.get(poslist.indexOf(position)).get_manager().insert();
                 //homeAdapter.notifyDataSetChanged();
                 Toast.makeText(MainActivity.this, ""+habitDatas.get(poslist.indexOf(position)).getHabit_id(), Toast.LENGTH_SHORT).show();
@@ -169,9 +148,11 @@ public class MainActivity extends BaseActivity {
                 }
                 Intent intent=new Intent(view.getContext(),item_intent.class);
                 intent.putExtra("list",(Serializable)signData_list);
-                startActivity(intent);
+                intent.putExtra("habit_id",habit.getHabit_id());
+                intent.putExtra("pos",poslist.indexOf(position));
+                startActivityForResult(intent,1);
+                //Toast.makeText(MainActivity.this, ""+habitDatas.get(poslist.indexOf(position)).getHabit_id(), Toast.LENGTH_SHORT).show();
             }
-
 
             @Override
             public void onItemLongClick(View view, int position) {
@@ -184,12 +165,13 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(final View view) {
                 new_habit_Dialog newhabit=new new_habit_Dialog(MainActivity.this);
-                habit=new Habit(MainActivity.this);
+                final Habit habit=new Habit(MainActivity.this);
                 newhabit.saveSetOnclick(new new_habit_Dialog.saveButtonListener() {
                     @Override
                     public void setActivityText(String name, String remind) {
                         MainActivity.this.name=name;
                         MainActivity.this.remind=remind;
+
                         habit.habit_name=name;
                         habit.content=remind;
                         habitDatas.add(habit);
@@ -270,7 +252,7 @@ public class MainActivity extends BaseActivity {
 //                        habit.date=date;
                         cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE), 0, 0, 0);
                         cal.set(Calendar.MILLISECOND, 0);
-                        long triggerAtTime=cal.getTimeInMillis()+hourOfDay*60*60*1000+minute*60*1000;
+                        //long triggerAtTime=cal.getTimeInMillis()+hourOfDay*60*60*1000+minute*60*1000;
                     }
                 }
                 // 设置初始时间
@@ -279,28 +261,6 @@ public class MainActivity extends BaseActivity {
                 // true表示采用24小时制
                 , true).show();
     }
-
-//    //提醒时间 写入数据库  并启动服务
-//    public void AddData(final RemainTime data) {
-////将获取到的便签列表时间缓存入SQL
-//        //  Calendar c = Calendar.getInstance();//获取当前时间，为了判断添加时间是否已经过时
-//        // mRemindSQL.getWritableDatabase();
-//        SQLiteDatabase db = mRemindSQL.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put("habitID", data.getId());
-//        values.put("hour", data.getHour());
-//        values.put("minute", data.getMinute());
-//        values.put("content", data.getText());
-//        values.put("date", data.getDate());
-//        values.put("repeat", data.getRepeat());
-//        values.put("title",data.getTitle());
-//        values.put("CountDay", 0);
-//        long id= db.insert("Remind_data", null, values);
-//        values.clear();
-//        db.close();
-//        //  Intent intent=new Intent(context,AlarmService.class);
-//        //  context.startService(intent);
-//    }
 
 
     public void start()
@@ -312,6 +272,38 @@ public class MainActivity extends BaseActivity {
     public void stop(){
         Intent intent=new Intent(this,AlarmService.class);
         stopService(intent);
+    }
+
+    @Override
+    // 当结果返回后判断并执行操作
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            if (requestCode == 1) {
+                if (resultCode == 1) {
+                    habit_all.update(data.getIntExtra("habit_id",0),
+                            data.getStringExtra("habit_name"),
+                            data.getStringExtra("content"),
+                            1,
+                            true,
+                            data.getIntExtra("remind_hour",25),
+                            data.getIntExtra("remind_minute",61)
+                    );
+                    habitDatas.get(data.getIntExtra("pos",0)).habit_name = data.getStringExtra("habit_name");
+                    habitDatas.set(data.getIntExtra("pos",0),
+                            habitDatas.get(data.getIntExtra("pos",0))
+                            );
+                    //homeAdapter.notifyDataSetChanged();
+                    Toast.makeText(this,"修改成功",Toast.LENGTH_SHORT).show();
+                }
+                if (resultCode == 2) {
+                    habit_all.delete(data.getIntExtra("habit_id",0));
+                    habitDatas.remove(data.getIntExtra("pos",0));
+
+                    Toast.makeText(this,"删除成功",Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
 
