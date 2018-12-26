@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">habit</string>
+    <string name="action_settings">Settings</string>
+    <string name="edit">编辑</string>
+    <string name="del">删除</string>
+</resources>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="10dp"
+    android:paddingTop="45dp">
+
+    <Button
+        android:id="@+id/btn_one"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center"
+        android:background="@null"
+        android:drawableTop="@mipmap/resize_2"
+        android:visibility="gone"
+        android:textSize="10sp" />
+
+
+    <Button
+        android:id="@+id/btn_two"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center"
+        android:background="@null"
+        android:drawableTop="@mipmap/resize_1"
+        android:visibility="gone"
+        android:textSize="10sp" />
+
+    <ToggleButton
+        android:id="@+id/btn_three"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="40dp"
+        android:gravity="center"
+        android:checked="true"
+        android:textOff=""
+        android:textOn=""
+        android:background="@drawable/button3_style"
+        android:visibility="gone"
+        />
+
+
+    <Button
+        android:id="@+id/btn_main"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="80dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+
+        android:background="@mipmap/resize_5"
+        android:clickable="true" />
+
+
+</FrameLayout>
