@@ -14,7 +14,7 @@
             android:id="@+id/diglogname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="新建习惯"
+            android:text="@string/NewHabit"
             android:textSize="20dp" />
 
         <EditText
@@ -22,7 +22,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
-            android:hint="习惯标题"
+            android:hint="@string/HabitTitle"
             android:textSize="14dp" />
 
         <EditText
@@ -30,7 +30,7 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
-            android:hint="提醒问题（你今天xxx了吗）"
+            android:hint="@string/warningQuestion"
             android:textSize="14dp" />
 
         <LinearLayout
@@ -41,7 +41,7 @@
             <TextView
                 android:layout_width="117dp"
                 android:layout_height="57dp"
-                android:text="提醒" />
+                android:text="@string/warning" />
 
             <Button
                 android:id="@+id/alarm_time"
@@ -61,7 +61,7 @@
                 android:layout_width="256dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="重复天数" />
+                android:text="@string/warningTime" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:text="保存"
+                android:text="@string/save"
                 android:textColor="#000000"
                 android:textSize="18dp" />
 
@@ -101,7 +101,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:text="放弃"
+                android:text="@string/giveup"
                 android:textColor="#000000"
                 android:textSize="18dp" />
         </LinearLayout>

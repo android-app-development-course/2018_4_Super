@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="signTable">签到表</string>
+    <string name="LongestFinish">最佳连续完成次数</string>
+    <string name="HabitStrength">习惯强度</string>
+    <string name="NewHabit">新建习惯</string>
+    <string name="HabitTitle">习惯标题</string>
+    <string name="warningQuestion">提醒问题（你今天xxx了吗）</string>
+    <string name="warning">提醒</string>
+    <string name="warningTime">重复天数</string>
+    <string name="save">保存</string>
+    <string name="giveup">放弃</string>
+    <string name="daka">打卡</string>
+    <string name="app_name">habit</string>
+    <string name="action_settings">设置</string>
+    <string name="edit">编辑</string>
+    <string name="del">删除</string>
+</resources>

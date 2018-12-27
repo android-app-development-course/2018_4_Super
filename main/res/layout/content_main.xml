@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    app:layout_behavior="@stior"
     tools:context="com.example.chenyx.habit.MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main">ring/appbar_scrolling_view_behav
 
     <TextView
         android:layout_width="wrap_content"
