@@ -1,0 +1,18 @@
+<resources>
+    <string name="signTable">Check-in form</string>
+    <string name="LongestFinish">Longest ompletion times</string>
+    <string name="HabitStrength">Habit strength</string>
+    <string name="NewHabit">New Habit</string>
+    <string name="HabitTitle">Habit Title</string>
+    <string name="warningQuestion">(xxx) today?</string>
+    <string name="warning">remind</string>
+    <string name="warningTime">repeat days</string>
+    <string name="save">Save</string>
+    <string name="giveup">Give up</string>
+    <string name="daka">Punch</string>
+    <string name="app_name">habit</string>
+    <string name="action_settings">Settings</string>
+    <string name="edit">edit</string>
+    <string name="del">delete</string>
+    <string name="remindtime">day/t</string>
+</resources>
